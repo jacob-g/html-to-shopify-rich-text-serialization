@@ -1,0 +1,30 @@
+{
+  "name": "htmltoshopifyrichtextserialization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "ts-jest"
+  },
+  "author": "Jaacob Goldberg",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.1",
+    "@jest/globals": "^29.7.0",
+    "@types/node": "^22.15.3",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "htmlparser2": "^10.0.0"
+  }
+}
