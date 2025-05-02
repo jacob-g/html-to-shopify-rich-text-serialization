@@ -45,7 +45,7 @@ interface ShopifyRichTextListItemNode extends ShopifyRichTextNodeBase {
 
 export const inlineNodeTypes = ['text', 'link'];
 export const topLevelNodeTypes = ['heading', 'paragraph', 'list'];
-export const listChildNodeTypes = ['text', 'heading'];
+export const listChildNodeTypes = ['text', 'heading', 'link'];
 
 export type ShopifyRichTextNode =
     | ShopifyRichTextTextNode
@@ -67,4 +67,5 @@ export type ShopifyRichTextInlineNode =
 
 export type ShopifyRichTextListChildNode =
     | ShopifyRichTextInlineNode
-    | ShopifyRichTextHeadingNode;
+    | ShopifyRichTextHeadingNode
+    | ShopifyRichTextLinkNode;

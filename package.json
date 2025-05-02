@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "ts-jest"
+    "test": "jest --watch"
   },
   "author": "Jaacob Goldberg",
   "license": "ISC",

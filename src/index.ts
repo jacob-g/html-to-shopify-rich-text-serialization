@@ -119,7 +119,6 @@ const htmlNodeToShopifyNodes = (node: ChildNode, context: ParseContext = {}): Sh
 
 const htmlToShopifyRichText = (html: string): ShopifyRichTextRoot => {
     const doc = parseDocument(html);
-    console.log(doc.childNodes);
 
     return {
         type: 'root',
