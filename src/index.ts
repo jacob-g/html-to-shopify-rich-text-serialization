@@ -1,17 +1,13 @@
 import { parseDocument } from 'htmlparser2';
 import { inlineNodeTypes, listChildNodeTypes, ShopifyRichTextHeadingNode, ShopifyRichTextInlineNode, ShopifyRichTextListChildNode, ShopifyRichTextNode, ShopifyRichTextRoot, ShopifyRichTextTextNode, ShopifyRichTextTopLevelNode, topLevelNodeTypes } from './models';
-import type Document from 'domhandler';
-
-type DocumentNode = ReturnType<typeof parseDocument>['childNodes'][number];
-type TextNode = Extract<DocumentNode, { type: 'text' }>;
-type TagNode = Extract<DocumentNode, { type: 'tag' }>;
+import type { ChildNode, Text } from 'domhandler';
 
 interface ParseContext {
     bold?: boolean;
     italic?: boolean;
 }
 
-const htmlTextNodeToShopifyNode = (node: TextNode, context: ParseContext): ShopifyRichTextTextNode => 
+const htmlTextNodeToShopifyNode = (node: Text, context: ParseContext): ShopifyRichTextTextNode => 
     ({
         type: "text",
         value: node.data,
@@ -19,7 +15,7 @@ const htmlTextNodeToShopifyNode = (node: TextNode, context: ParseContext): Shopi
         italic: context.italic,
     });
 
-const htmlNodeToShopifyNodes = (node: DocumentNode, context: ParseContext = {}): ShopifyRichTextNode[] => {
+const htmlNodeToShopifyNodes = (node: ChildNode, context: ParseContext = {}): ShopifyRichTextNode[] => {
     switch (node.type) {
         case 'text':
             return [htmlTextNodeToShopifyNode(node, context)];
