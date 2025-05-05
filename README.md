@@ -1,4 +1,4 @@
-A simple function to convert HTML into the JSON format that the JSON format that Shopify rich text metaobject field expects.
+A simple function to convert HTML into the JSON format that the Shopify rich text metaobject field expects.
 
 ## Usage
 To use this project, simply import the function:

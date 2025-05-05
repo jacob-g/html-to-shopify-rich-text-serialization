@@ -262,4 +262,108 @@ describe('nesting', () => {
             ],
         });
     });
-})
+});
+
+describe('skipping invalid content', () => {
+    test('returns nothing when there is no wrapping tag', () => {
+        const result = htmlToShopifyRichText('this is something with no wrapping tags');
+
+        expect(result).toEqual({
+            type: 'root',
+            children: [
+            ]
+        })
+    });
+
+    test('ignores non-list-item tags under list', () => {
+        const result = htmlToShopifyRichText('<ul><li>test 1</li><h3>test 2</h3></ul>');
+
+        expect(result).toEqual({
+            type: 'root',
+            children: [
+                {
+                    type: 'list',
+                    listType: 'unordered',
+                    children: [
+                        {
+                            type: 'list-item',
+                            children: [
+                                {
+                                    type: 'text',
+                                    value: 'test 1',
+                                    bold: undefined,
+                                    italic: undefined
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        })
+    });
+
+    test('ignores list under heading', () => {
+        const result = htmlToShopifyRichText('<h1>heading <ul><li>test</li></ul></h1>');
+
+        expect(result).toEqual({
+            type: 'root',
+            children: [
+                {
+                    type: 'heading',
+                    level: 1,
+                    children: [
+                        {
+                            type: 'text',
+                            value: 'heading ',
+                            bold: undefined,
+                            italic: undefined
+                        }
+                    ]
+                }
+            ]
+        })
+    });
+
+    test('breaks out list and ignores stray text when a list is inserted extraneously into a paragraph', () => {
+        const result = htmlToShopifyRichText('<p>paragraph <ul><li>list</li></ul> p-end</p>');
+
+        expect(result).toEqual({
+            type: 'root',
+            children: [
+                {
+                    type: 'paragraph',
+                    children: [
+                        {
+                            type: 'text',
+                            value: 'paragraph ',
+                            bold: undefined,
+                            italic: undefined
+                        }
+                    ]
+                },
+                {
+                    type: 'list',
+                    listType: 'unordered',
+                    children: [
+                        {
+                            type: 'list-item',
+                            children: [
+                                {
+                                    type: 'text',
+                                    value: 'list',
+                                    bold: undefined,
+                                    italic: undefined
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    type: 'paragraph',
+                    children: [
+                    ]
+                }
+            ]
+        });
+    })
+});
