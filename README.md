@@ -1,4 +1,4 @@
-A simple function to convert HTML into the JSON format that the Shopify rich text metaobject field expects.
+A simple function to convert HTML into the JSON format that the [Shopify rich text metaobject field](https://shopify.dev/docs/apps/build/custom-data/metafields/list-of-data-types#rich-text-formatting) expects.
 
 ## Usage
 To use this project, simply import the function:
@@ -31,6 +31,8 @@ returns
 */
 ```
 
+This can be then serialized to JSON with `JSON.stringify` and used as the value for a rich text metafield or metaobject field in GraphQL.
+
 ## Tag Nesting
 The tag nesting is limited to what Shopify allows, and any tags that do not fit Shopify's allowed nesting structure will be ignored. The basic structure is as follows:
 
@@ -39,3 +41,5 @@ The tag nesting is limited to what Shopify allows, and any tags that do not fit 
 * List items: the immediate children of list items must be links (`<a>`), raw text, bold (`<b>`/`<strong>`), italic (`<i>`/`<em>`), and headings
 * Links: the children of links must be inline (raw text, bold, italic) or headings, and cannot include other links
 * Headings and paragraphs: the children can only be inline or links
+
+A more formal specification for the format of tags that Shopify allows can be seen by the TypeScript interfaces in `src/models.ts`. A number of examples can be seen in the unit tests in `tests/index.test.ts`.
